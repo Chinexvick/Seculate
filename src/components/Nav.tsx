@@ -1,13 +1,17 @@
 import { useState } from 'react';
 import { AnimatePresence, motion, useMotionValueEvent, useScroll } from 'framer-motion';
+import { Link, NavLink } from 'react-router-dom';
 import { ease } from '../lib/motion';
 import { Logo } from './Logo';
 
 const links = [
-  { label: 'Services', href: '#services' },
-  { label: 'How it works', href: '#how' },
-  { label: 'Pricing', href: '#pricing' },
+  { label: 'Services', href: '/#services' },
+  { label: 'How it works', href: '/#how' },
+  { label: 'Pricing', href: '/#pricing' },
+  { label: 'Blog', href: '/blog' },
 ];
+
+const MotionLink = motion(Link);
 
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
@@ -28,16 +32,21 @@ export function Nav() {
 
         <nav className="nav__tabs" aria-label="Primary">
           {links.map((l) => (
-            <a key={l.href} href={l.href}>
+            <NavLink
+              key={l.href}
+              to={l.href}
+              // Hash links all point at "/", so only real pages get the active style.
+              className={({ isActive }) => (isActive && !l.href.includes('#') ? 'is-active' : undefined)}
+            >
               {l.label}
-            </a>
+            </NavLink>
           ))}
         </nav>
 
         <div className="nav__cta">
-          <motion.a href="#download" className="btn btn--green" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>
+          <MotionLink to="/#download" className="btn btn--green" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>
             Get started
-          </motion.a>
+          </MotionLink>
         </div>
 
         <button
@@ -64,13 +73,13 @@ export function Nav() {
           >
             <div className="menu__list">
               {links.map((l) => (
-                <a key={l.href} href={l.href} className="menu__link" onClick={() => setOpen(false)}>
+                <Link key={l.href} to={l.href} className="menu__link" onClick={() => setOpen(false)}>
                   {l.label}
-                </a>
+                </Link>
               ))}
-              <a href="#download" className="btn btn--green menu__cta" onClick={() => setOpen(false)}>
+              <Link to="/#download" className="btn btn--green menu__cta" onClick={() => setOpen(false)}>
                 Get started
-              </a>
+              </Link>
             </div>
           </motion.div>
         )}
