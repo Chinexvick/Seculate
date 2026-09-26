@@ -386,8 +386,6 @@ picture {
   gap: 12px;
   overflow-x: auto;
   overscroll-behavior-x: contain;
-  scroll-snap-type: x proximity;
-  scroll-padding-inline: 23px;
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
   cursor: grab;
@@ -396,20 +394,14 @@ picture {
 .cats__row::-webkit-scrollbar {
   display: none;
 }
-.cats__row::after {
-  content: '';
-  flex: 0 0 11px; /* keeps the right gutter visible at the end of the scroll */
-}
 .cats__row.is-dragging {
   cursor: grabbing;
-  scroll-snap-type: none;
   user-select: none;
 }
 .cat {
   position: relative;
   flex: 0 0 78px;
   height: 90px;
-  scroll-snap-align: start;
   background: var(--white);
   border: 1px solid var(--border);
   border-radius: 16px;
@@ -1143,10 +1135,9 @@ picture {
     justify-content: space-between;
     gap: clamp(12px, 1.94vw, 28px);
     overflow: visible;
-    scroll-snap-type: none;
     cursor: auto;
   }
-  .cats__row::after {
+  .cat--clone {
     display: none;
   }
   .cat {
