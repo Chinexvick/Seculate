@@ -1,12 +1,13 @@
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { Art } from '../lib/Art';
 import { fadeIn, fadeUp, stagger } from '../lib/motion';
 import { Socials } from './Socials';
 
 const cols = [
-  { title: 'Product', links: [['Services', '#services'], ['Categories', '#services'], ['Pricing', '#pricing'], ['How it works', '#how']] },
-  { title: 'Company', links: [['About', '#'], ['Contact', '#'], ['Careers', '#'], ['Partners', '#']] },
-  { title: 'Resources', links: [['Help center', '#'], ['Safety', '#'], ['Community', '#'], ['Blog', '#']] },
+  { title: 'Product', links: [['Services', '/#services'], ['Categories', '/#services'], ['Pricing', '/#pricing'], ['How it works', '/#how']] },
+  { title: 'Company', links: [['About', '/about'], ['Contact', '/contact'], ['Careers', '/careers'], ['Partners', '/partners']] },
+  { title: 'Resources', links: [['Help center', '/help'], ['Safety', '/safety'], ['Community', '/community'], ['Blog', '/blog']] },
 ];
 
 export function Footer() {
@@ -43,7 +44,7 @@ export function Footer() {
               <ul>
                 {c.links.map(([label, href]) => (
                   <li key={label}>
-                    <a href={href}>{label}</a>
+                    <Link to={href}>{label}</Link>
                   </li>
                 ))}
               </ul>
@@ -57,7 +58,9 @@ export function Footer() {
         <div className="footer__legal">
           <span>© 2026 Seculate. All rights reserved.</span>
           <Socials />
-          <span>Privacy • Terms</span>
+          <span className="footer__legal-links">
+            <Link to="/privacy">Privacy</Link> • <Link to="/terms">Terms</Link>
+          </span>
         </div>
       </motion.div>
     </motion.footer>
