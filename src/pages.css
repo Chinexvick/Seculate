@@ -1604,3 +1604,152 @@ textarea.lform__input {
     top: 100px;
   }
 }
+
+/* ==========================================================================
+   Home: endless item marquee
+   ========================================================================== */
+.marquee {
+  --card-w: 150px;
+  --card-h: 184px;
+  --gap: 12px;
+  --dur: 45s;
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+  overflow: hidden;
+  padding-block: 10px;
+  /* Soft fade at both edges. */
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 8%, #000 92%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0, #000 8%, #000 92%, transparent 100%);
+}
+.marquee__row {
+  display: flex;
+}
+.marquee__track {
+  display: flex;
+  flex: none;
+  animation: marquee var(--dur) linear infinite;
+  will-change: transform;
+  backface-visibility: hidden;
+}
+.marquee__row--reverse .marquee__track {
+  animation-direction: reverse;
+  /* Different pace so the rows never line up. */
+  animation-duration: calc(var(--dur) * 1.12);
+}
+.marquee:hover .marquee__track {
+  animation-play-state: paused;
+}
+@keyframes marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.icard {
+  position: relative;
+  flex: none;
+  width: var(--card-w);
+  height: var(--card-h);
+  /* Spacing as margin (not flex gap) keeps both halves of the track identical, so -50% is exact. */
+  margin-right: var(--gap);
+  border-radius: 22px;
+  padding: 6px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  box-shadow: 0 14px 30px -22px rgba(11, 25, 48, 0.45);
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease;
+}
+.icard:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 24px 40px -24px rgba(11, 25, 48, 0.55);
+}
+.icard__photo {
+  width: 100%;
+  height: 100%;
+  border-radius: 17px;
+}
+/* A lighter grade than the editorial photos so products keep their true colours. */
+.icard__photo::before {
+  background: linear-gradient(160deg, rgba(22, 200, 91, 0.16) 0%, rgba(11, 25, 48, 0.22) 100%);
+}
+.icard__photo::after {
+  background: linear-gradient(180deg, transparent 55%, rgba(11, 25, 48, 0.45) 100%);
+}
+.icard:hover .icard__photo img {
+  transform: scale(1.06);
+}
+.icard__label {
+  position: absolute;
+  left: 14px;
+  bottom: 14px;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  max-width: calc(100% - 28px);
+  padding: 6px 11px 6px 9px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--navy);
+  white-space: nowrap;
+  box-shadow: 0 6px 14px -8px rgba(11, 25, 48, 0.5);
+}
+.icard__dot {
+  width: 7px;
+  height: 7px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 0 3px rgba(22, 200, 91, 0.2);
+}
+
+@media (min-width: 1024px) {
+  .marquee {
+    --card-w: 210px;
+    --card-h: 250px;
+    --gap: 20px;
+    --dur: 60s;
+    margin-top: 72px;
+    gap: 20px;
+  }
+  .icard {
+    border-radius: 26px;
+    padding: 7px;
+  }
+  .icard__photo {
+    border-radius: 20px;
+  }
+  .icard__label {
+    left: 17px;
+    bottom: 17px;
+    font-size: 12.5px;
+    padding: 7px 13px 7px 10px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+  .marquee__row {
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding-inline: 16px;
+  }
+  .marquee__track {
+    animation: none;
+  }
+  .icard[aria-hidden='true'] {
+    display: none;
+  }
+}
