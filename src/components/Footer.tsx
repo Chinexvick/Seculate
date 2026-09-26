@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Art } from '../lib/Art';
 import { fadeIn, fadeUp, stagger } from '../lib/motion';
+import { Socials } from './Socials';
 
 const cols = [
   { title: 'Product', links: [['Services', '#services'], ['Categories', '#services'], ['Pricing', '#pricing'], ['How it works', '#how']] },
@@ -20,7 +21,7 @@ export function Footer() {
       <div className="footer__inner">
         <motion.div className="footer__brand" variants={fadeUp}>
           <div className="footer__logo">
-            <span className="footer__logo-s">S</span>
+            <img className="footer__logo-mark" src="/brand/seculate-mark.svg" alt="" width={39} height={31} draggable={false} />
             <span className="footer__logo-name">Seculate</span>
           </div>
           <p className="footer__tag">Find, lend, rent and get things done.</p>
@@ -55,6 +56,7 @@ export function Footer() {
         <div className="footer__rule" />
         <div className="footer__legal">
           <span>© 2026 Seculate. All rights reserved.</span>
+          <Socials />
           <span>Privacy • Terms</span>
         </div>
       </motion.div>

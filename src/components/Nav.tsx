@@ -35,9 +35,6 @@ export function Nav() {
         </nav>
 
         <div className="nav__cta">
-          <a href="#download" className="nav__signin">
-            Sign in
-          </a>
           <motion.a href="#download" className="btn btn--green" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>
             Get started
           </motion.a>

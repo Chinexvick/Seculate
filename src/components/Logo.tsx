@@ -1,12 +1,7 @@
-import { Art } from '../lib/Art';
-
 export function Logo() {
   return (
     <a href="#top" className="logo" aria-label="Seculate home">
-      <span className="logo__mark">
-        <Art name="logo-circle.svg" />
-        <span className="logo__s">S</span>
-      </span>
+      <img className="logo__mark" src="/brand/seculate-mark.svg" alt="" width={39} height={31} draggable={false} />
       <span className="logo__name">Seculate</span>
     </a>
   );
