@@ -14,7 +14,7 @@ const offer = [
 ] as const;
 
 const values = [
-  { icon: 'shieldCheck', title: 'Trust comes first', text: 'Verification, ratings, reviews and secure payments exist so strangers can become neighbours you can rely on.' },
+  { icon: 'shieldCheck', title: 'Trust comes first', text: 'Verification, ratings, reviews and secure escrow exist so strangers can become neighbours you can rely on.' },
   { icon: 'users', title: 'Community over consumption', text: 'The best item is often the one that already exists nearby. Sharing it is smarter than buying another.' },
   { icon: 'wallet', title: 'Fair and affordable', text: 'Pricing that makes sense for students, families, freelancers and small businesses alike, starting free.' },
   { icon: 'pin', title: 'Built for here', text: 'Designed around how people in Nigeria actually live, work, move and do business every day.' },
@@ -46,7 +46,7 @@ export default function About() {
             </motion.p>
             <motion.p variants={fadeUp}>
               Seculate brings all of that into one trusted place. Verified people and businesses list what they
-              have. Everyone else can find it nearby, agree the details in-app, pay securely and rate the
+              have. Everyone else can find it nearby, agree the details in-app, pay through secure escrow and rate the
               experience, so the next person knows exactly who they are dealing with.
             </motion.p>
           </motion.div>

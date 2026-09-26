@@ -8,7 +8,7 @@ const built = [
   { icon: 'shieldCheck', title: 'Verified users', text: 'People and businesses on Seculate go through verification, so you know who you are dealing with.' },
   { icon: 'star', title: 'Ratings & reviews', text: 'Every completed exchange can be rated, building a public track record you can check before you commit.' },
   { icon: 'chat', title: 'In-app chat', text: 'Agree dates, prices and condition in the chat so there’s always a clear record of what was agreed.' },
-  { icon: 'lock', title: 'Secure payments', text: 'Pay and get paid inside Seculate instead of sending money to strangers directly.' },
+  { icon: 'lock', title: 'Secure escrow', text: 'Payments are held safely in escrow and only released once the exchange is confirmed, so both sides can do business with confidence.' },
 ] as const;
 
 const tips: { icon: IconName; title: string; items: string[] }[] = [

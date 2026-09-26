@@ -5,7 +5,7 @@ import { fadeUp, pop, scaleIn, stagger, viewport } from '../lib/motion';
 
 const items = [
   { title: 'Affordable', desc: 'Save money by borrowing instead of buying.' },
-  { title: 'Trusted', desc: 'Verified users, ratings and secure payments.' },
+  { title: 'Trusted', desc: 'Verified users, ratings and secure escrow.' },
   { title: 'Local', desc: 'Support people and businesses near you.' },
 ];
 
