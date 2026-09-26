@@ -4,30 +4,43 @@ import { SectionHead } from './SectionHead';
 
 const plans = [
   {
-    name: 'Free',
+    name: '🔰 On Code',
     price: '₦0',
-    desc: 'Perfect for getting started.',
-    features: ['✓ Browse and search', '✓ Basic support', '✓ Limited settings'],
+    features: ['✓ Item Limit: List up to 3 items/month', '✓ Duration: 2 weeks', '✓ Visibility: Standard'],
   },
   {
-    name: 'Pro',
-    price: '₦2,500',
-    desc: 'For regular users and small businesses.',
-    features: ['✓Unlimited access', '✓ Priority support', '✓ More visibility'],
+    name: '✅ Active',
+    price: '₦500',
+    features: ['✓ Item Limit: List up to 5 items/month', '✓ Duration: 30 days', '✓ Visibility: Standard'],
+  },
+  {
+    name: '🚀 Hustler',
+    price: '₦1,500',
+    features: [
+      '✓ Item Limit: List up to 10 items/month',
+      '✓ Duration: 60 days',
+      '✓ Visibility: Standard + Featured once a week',
+    ],
     featured: true,
   },
   {
-    name: 'Business',
-    price: '₦7,500',
-    desc: 'For active businesses.',
-    features: ['✓ Everything in Pro', '✓ Advanced analytics', '✓ Featured settings'],
+    name: '👑 Top Lender',
+    price: '₦5,000',
+    features: [
+      '✓ Item Limit: Unlimited',
+      '✓ Duration: Unlimited',
+      '✓ Visibility: Top Priority',
+      '✓ Access to Private Requests',
+      '✓ Custom Offers',
+      '✓ Priority Support',
+    ],
   },
 ];
 
 export function Pricing() {
   return (
     <section className="section section--pricing wrap wrap--narrow" id="pricing">
-      <SectionHead eyebrow="PLANS" gap={16} title="Flexible pricing" subtitle="Choose a plan that works for you." />
+      <SectionHead eyebrow="PLANS" gap={16} title="Pricing plans" subtitle="List for free. Upgrade to post more items and get noticed." />
 
       <motion.div
         className="plans"
@@ -47,7 +60,6 @@ export function Pricing() {
               <span className="plan__price">{p.price}</span>
               <span className="plan__per">/month</span>
             </div>
-            <p className="plan__desc">{p.desc}</p>
             <ul className="plan__features">
               {p.features.map((f) => (
                 <li key={f}>{f}</li>

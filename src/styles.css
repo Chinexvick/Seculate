@@ -598,11 +598,10 @@ picture {
 }
 .plan {
   position: relative;
-  height: 115px;
   background: var(--white);
   border: 1px solid var(--border);
   border-radius: 16px;
-  padding: 24px 22px 0;
+  padding: 24px 22px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 .plan:hover {
@@ -640,7 +639,14 @@ picture {
   color: var(--slate);
 }
 .plan__features {
-  display: none;
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--navy);
+  line-height: 16px;
 }
 
 /* Community ----------------------------------------------------------------- */
@@ -1137,12 +1143,11 @@ picture {
   .plans {
     margin-top: 22px;
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 390px));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: clamp(16px, 1.667vw, 24px);
   }
   .plan {
-    height: 210px;
-    padding: 27px 0 0 35px;
+    padding: 27px 24px 28px 28px;
   }
   .plan__name {
     font-size: 18px;
@@ -1165,11 +1170,9 @@ picture {
     line-height: 13px;
   }
   .plan__features {
-    display: flex;
-    flex-direction: column;
     gap: 10px;
     margin-top: 18px;
-    font-size: 10px;
+    font-size: 11px;
     font-weight: 700;
     color: var(--navy);
     line-height: 12px;
