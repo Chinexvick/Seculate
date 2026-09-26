@@ -125,7 +125,7 @@ export const helpTopics: HelpTopic[] = [
     faqs: [
       {
         q: 'How does Seculate keep users safe?',
-        a: 'Users are verified, and every completed exchange can be rated and reviewed, so you can see who you are dealing with before you agree to anything. Payments are handled securely, and in-app chat keeps a record of every agreement. Read our Safety page for practical tips.',
+        a: 'Users are verified, and every completed exchange can be rated and reviewed, so you can see who you are dealing with before you agree to anything. Payments are protected by Seculate escrow: the money is held safely and only released once the exchange is confirmed, and in-app chat keeps a record of every agreement. Read our Safety page for practical tips.',
       },
       {
         q: 'Should I pay or chat outside the app?',

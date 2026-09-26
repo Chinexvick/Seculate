@@ -116,7 +116,7 @@ export const posts: Post[] = [
       { type: 'h2', text: 'How Seculate helps' },
       {
         type: 'p',
-        text: 'Seculate was built for exactly this. It connects you with verified people and businesses nearby so you can borrow what you need for as long as you need it, and lend what you don’t use. Ratings, reviews, in-app chat and secure payments take the guesswork out of dealing with people you haven’t met before.',
+        text: 'Seculate was built for exactly this. It connects you with verified people and businesses nearby so you can borrow what you need for as long as you need it, and lend what you don’t use. Ratings, reviews, in-app chat and secure escrow payments take the guesswork out of dealing with people you haven’t met before.',
       },
       {
         type: 'ul',
@@ -189,10 +189,10 @@ export const posts: Post[] = [
         type: 'p',
         text: 'Most disputes aren’t caused by bad people. They are caused by misunderstandings. Agreeing the price, dates, condition, deposit and return details in writing, before anything changes hands, removes almost all of the “but I thought…” moments.',
       },
-      { type: 'h3', text: '4. Payments that protect both sides' },
+      { type: 'h3', text: '4. Escrow that protects both sides' },
       {
         type: 'p',
-        text: 'Paying through a secure platform instead of transferring to a stranger’s personal account protects the borrower from paying for something that never arrives, and gives the lender confidence that payment is real.',
+        text: 'With escrow, the borrower’s payment is held safely by a trusted middle party and only released once the exchange is confirmed. The borrower never pays for something that doesn’t arrive, and the lender knows the money is real and waiting for them. Both sides can do business comfortably.',
       },
       { type: 'h3', text: '5. Someone to turn to' },
       {
@@ -227,7 +227,7 @@ export const posts: Post[] = [
       { type: 'h2', text: 'How Seculate is designed for trust' },
       {
         type: 'p',
-        text: 'Every part of Seculate is built around those five building blocks. Users are verified. Every completed exchange can be rated and reviewed. Conversations happen in in-app chat, so agreements are clear and recorded. Payments are handled securely. And if something goes wrong, you can report it directly to our team.',
+        text: 'Every part of Seculate is built around those five building blocks. Users are verified. Every completed exchange can be rated and reviewed. Conversations happen in in-app chat, so agreements are clear and recorded. Payments go through secure escrow and are only released once the exchange is confirmed. And if something goes wrong, you can report it directly to our team.',
       },
       {
         type: 'p',
@@ -452,7 +452,7 @@ export const posts: Post[] = [
           'Verified providers, so you know who is coming to your home or business.',
           'Ratings and reviews from real customers, so great work gets noticed.',
           'In-app chat, so the price, scope and timing are clear and recorded.',
-          'Secure payments, so both sides are protected.',
+          'Secure escrow, so payment is only released when the job is done.',
         ],
       },
       { type: 'h2', text: 'If you are a service provider' },
