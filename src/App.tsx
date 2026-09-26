@@ -7,6 +7,7 @@ import { Utility } from './components/Utility';
 import { Pricing } from './components/Pricing';
 import { Community } from './components/Community';
 import { Cta } from './components/Cta';
+import { Newsletter } from './components/Newsletter';
 import { Footer } from './components/Footer';
 
 export default function App() {
@@ -27,6 +28,7 @@ export default function App() {
           <Pricing />
           <Community />
           <Cta />
+          <Newsletter />
         </main>
         <Footer />
       </div>
