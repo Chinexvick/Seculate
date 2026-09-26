@@ -27,40 +27,86 @@ const categories: Category[] = [
   { key: 'home', desktopLabel: 'Home & Living', icon: 'cat-home.svg', offscreenOnMobile: true },
 ];
 
+/** Auto-scroll speed of the mobile category row, in pixels per second. */
+const SPEED = 28;
+
 export function Categories() {
   const rowRef = useRef<HTMLDivElement>(null);
   const inView = useInView(rowRef, { once: true, amount: 0.6 });
   const drag = useRef({ active: false, startX: 0, startScroll: 0, moved: false });
 
-  // On mobile, nudge the row once so people notice the off-screen cards are scrollable.
+  // On mobile the row scrolls itself in an endless loop. The cards are rendered twice, so
+  // when the first set has scrolled fully out of view we jump back by exactly one set,
+  // which looks seamless. Touching, dragging or hovering pauses it; it resumes shortly after.
   useEffect(() => {
     const el = rowRef.current;
     if (!inView || !el) return;
-    if (window.matchMedia('(min-width: 1024px)').matches) return;
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    if (el.scrollWidth <= el.clientWidth) return;
+    const mobile = window.matchMedia('(max-width: 1023.98px)');
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
 
     let raf = 0;
-    const start = performance.now();
-    const delay = 900;
-    const duration = 1100;
-    const distance = 64;
+    let last = 0;
+    let pos = el.scrollLeft;
+    let paused = false;
+    let resumeTimer = 0;
+
+    const loopWidth = () => {
+      const first = el.children[0] as HTMLElement | undefined;
+      const clone = el.children[categories.length] as HTMLElement | undefined;
+      return first && clone ? clone.offsetLeft - first.offsetLeft : 0;
+    };
+
     const tick = (now: number) => {
-      const t = now - start - delay;
-      if (t > 0 && t < duration) {
-        const p = t / duration;
-        el.scrollLeft = Math.sin(p * Math.PI) * distance; // out and back
-      } else if (t >= duration) {
-        el.scrollLeft = 0;
-        return;
+      const dt = last ? Math.min(now - last, 64) : 0;
+      last = now;
+      if (!paused && mobile.matches && !reduced.matches) {
+        const w = loopWidth();
+        pos += (SPEED * dt) / 1000;
+        if (w && pos >= w) pos -= w;
+        el.scrollLeft = pos;
       }
       raf = requestAnimationFrame(tick);
     };
+
+    const pause = () => {
+      paused = true;
+      window.clearTimeout(resumeTimer);
+    };
+    const resume = () => {
+      window.clearTimeout(resumeTimer);
+      resumeTimer = window.setTimeout(() => {
+        const w = loopWidth();
+        pos = el.scrollLeft;
+        if (w && pos >= w) pos %= w;
+        paused = false;
+      }, 1800);
+    };
+
+    const opts = { passive: true } as const;
+    el.addEventListener('touchstart', pause, opts);
+    el.addEventListener('touchend', resume, opts);
+    el.addEventListener('touchcancel', resume, opts);
+    el.addEventListener('pointerdown', pause, opts);
+    el.addEventListener('pointerup', resume, opts);
+    el.addEventListener('mouseenter', pause, opts);
+    el.addEventListener('mouseleave', resume, opts);
+    el.addEventListener('focusin', pause);
+    el.addEventListener('focusout', resume);
     raf = requestAnimationFrame(tick);
-    const cancel = () => cancelAnimationFrame(raf);
-    el.addEventListener('pointerdown', cancel, { once: true });
-    el.addEventListener('touchstart', cancel, { once: true, passive: true });
-    return cancel;
+
+    return () => {
+      cancelAnimationFrame(raf);
+      window.clearTimeout(resumeTimer);
+      el.removeEventListener('touchstart', pause);
+      el.removeEventListener('touchend', resume);
+      el.removeEventListener('touchcancel', resume);
+      el.removeEventListener('pointerdown', pause);
+      el.removeEventListener('pointerup', resume);
+      el.removeEventListener('mouseenter', pause);
+      el.removeEventListener('mouseleave', resume);
+      el.removeEventListener('focusin', pause);
+      el.removeEventListener('focusout', resume);
+    };
   }, [inView]);
 
   // Click-and-drag scrolling for mouse users (touch already scrolls natively).
@@ -95,19 +141,23 @@ export function Categories() {
         whileInView="show"
         viewport={{ once: true, amount: 0.3 }}
         role="list"
-        aria-label="Categories (scroll horizontally for more)"
+        aria-label="Categories"
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}
         onPointerUp={endDrag}
         onPointerLeave={endDrag}
         onPointerCancel={endDrag}
       >
-        {categories.map((c) => (
+        {[...categories, ...categories].map((c, i) => {
+          const clone = i >= categories.length;
+          return (
           <motion.a
-            key={c.key}
+            key={clone ? `${c.key}-clone` : c.key}
             href="#download"
-            className="cat"
-            role="listitem"
+            className={`cat ${clone ? 'cat--clone' : ''}`}
+            role={clone ? undefined : 'listitem'}
+            aria-hidden={clone || undefined}
+            tabIndex={clone ? -1 : undefined}
             variants={scaleIn}
             draggable={false}
             onClick={(e) => {
@@ -133,7 +183,8 @@ export function Categories() {
               )}
             </span>
           </motion.a>
-        ))}
+          );
+        })}
       </motion.div>
     </section>
   );
