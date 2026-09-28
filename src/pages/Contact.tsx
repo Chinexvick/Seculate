@@ -59,13 +59,13 @@ export default function Contact() {
                 </span>
               </Link>
             ))}
-            <a className="scard scard--social" href="https://www.instagram.com/seculate.ng" target="_blank" rel="noopener noreferrer">
+            <a className="scard scard--social" href="https://www.instagram.com/seculate_ng" target="_blank" rel="noopener noreferrer">
               <span className="fcard__icon">
                 <Icon name="chat" />
               </span>
               <span className="scard__body">
                 <span className="scard__title">Say hi on Instagram</span>
-                <span className="scard__text">Follow and message us at @seculate.ng</span>
+                <span className="scard__text">Follow and message us at @seculate_ng</span>
               </span>
             </a>
           </aside>
