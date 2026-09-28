@@ -1,8 +1,8 @@
-// Replace '#' with the real profile URLs once they are available.
+// Replace '#' with the real profile URL once it is available (X is still pending).
 const socials = [
   {
     label: 'Instagram',
-    href: 'https://www.instagram.com/seculate.ng',
+    href: 'https://www.instagram.com/seculate_ng',
     icon: (
       <g fill="none" stroke="currentColor" strokeWidth="1.9">
         <rect x="3" y="3" width="18" height="18" rx="5" />
@@ -13,14 +13,14 @@ const socials = [
   },
   {
     label: 'Facebook',
-    href: '#',
+    href: 'https://www.facebook.com/share/19qCs5uJcK/',
     icon: (
       <path d="M14 22v-9h3l.5-3.6H14V7.2c0-1 .3-1.7 1.8-1.7h1.9V2.3c-.3 0-1.5-.2-2.8-.2-2.8 0-4.6 1.7-4.6 4.8v2.6H7.2V13h3.1v9H14Z" />
     ),
   },
   {
     label: 'TikTok',
-    href: '#',
+    href: 'https://www.tiktok.com/@seculate_ng',
     icon: (
       <path d="M16.6 2h-3.3v13.4c0 1.6-1.3 2.9-2.9 2.9a2.9 2.9 0 0 1-2.9-2.9c0-1.6 1.2-2.9 2.8-2.9.3 0 .6 0 .9.1V9.2c-.3 0-.6-.1-.9-.1-3.5 0-6.3 2.8-6.3 6.3s2.8 6.3 6.3 6.3 6.3-2.8 6.3-6.3V8.6c1.3.9 2.8 1.4 4.4 1.4V6.7c-2.4 0-4.4-2-4.4-4.7Z" />
     ),
