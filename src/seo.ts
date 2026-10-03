@@ -6,7 +6,7 @@ import { helpTopics } from './content/help';
  * build-time prerender (scripts/prerender.mjs) so every page ships real HTML with the right
  * <title>, description, canonical URL, social preview and structured data.
  */
-export const SITE_URL = 'https://seculate-black.vercel.app';
+export const SITE_URL = 'https://www.seculate.ng';
 export const SITE_NAME = 'Seculate';
 export const DEFAULT_TITLE = 'Seculate — Borrow and lend what you have';
 export const DEFAULT_DESCRIPTION =
