@@ -21,7 +21,7 @@ const values = [
 ] as const;
 
 export default function About() {
-  usePageMeta('About us', 'Seculate helps people borrow, lend and rent what they have, and find trusted local services.');
+  usePageMeta();
   return (
     <>
       <PageHero

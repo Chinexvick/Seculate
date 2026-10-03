@@ -27,7 +27,7 @@ const pexelsUrl = (id: number, w: number) =>
  * Falls back to a brand gradient if the image cannot load.
  */
 export function Photo({ pexels, src, alt, className = '', sizes = '100vw', priority, maxWidth = 1800 }: Props) {
-  const widths = [480, 800, 1200, 1800].filter((w) => w <= maxWidth);
+  const widths = [320, 480, 800, 1200, 1800].filter((w) => w <= maxWidth);
   const [failed, setFailed] = useState(false);
   return (
     <span className={`photo ${failed ? 'photo--failed' : ''} ${className}`}>

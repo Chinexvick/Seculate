@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom';
 import { Icon } from '../components/Icon';
 import { usePageMeta } from '../lib/usePageMeta';
+import { NOT_FOUND_META } from '../seo';
 
 export default function NotFound() {
-  usePageMeta('Page not found');
+  usePageMeta(NOT_FOUND_META);
   return (
     <section className="nf">
       <p className="nf__code">404</p>

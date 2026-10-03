@@ -13,7 +13,7 @@ import NotFound from './NotFound';
 export default function BlogPost() {
   const { slug = '' } = useParams();
   const post = findPost(slug);
-  usePageMeta(post?.title, post?.excerpt);
+  usePageMeta();
 
   const { scrollYProgress } = useScroll();
   const progress = useSpring(scrollYProgress, { stiffness: 140, damping: 30 });

@@ -25,7 +25,7 @@ export function ItemMarquee() {
 function ItemCard({ item, hidden }: { item: Item; hidden: boolean }) {
   return (
     <li className={`icard ${item.cutout ? 'icard--cutout' : ''}`} aria-hidden={hidden || undefined}>
-      <Photo {...item.photo} className="icard__photo" sizes="140px" maxWidth={480} priority />
+      <Photo {...item.photo} className="icard__photo" sizes="135px" maxWidth={320} />
       <span className="icard__label">{item.name}</span>
     </li>
   );

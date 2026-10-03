@@ -11,7 +11,7 @@ const links = [
   { label: 'Blog', href: '/blog' },
 ];
 
-const MotionLink = motion(Link);
+const MotionLink = motion.create(Link);
 
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);

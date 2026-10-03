@@ -28,7 +28,7 @@ const steps = [
 ];
 
 export default function Partners() {
-  usePageMeta('Partner with us', 'Grow your business with Seculate: reach verified customers nearby who need what you offer.');
+  usePageMeta();
   return (
     <>
       <PageHero

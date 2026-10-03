@@ -12,7 +12,7 @@ import { usePageMeta } from '../lib/usePageMeta';
 const categories = ['All', ...Array.from(new Set(posts.map((p) => p.category)))];
 
 export default function Blog() {
-  usePageMeta('Blog', 'Guides and stories on saving money, earning from what you own and staying safe while you share.');
+  usePageMeta();
   const [cat, setCat] = useState('All');
   const [featured, ...rest] = posts;
   const filtered = cat === 'All' ? rest : posts.filter((p) => p.category === cat);

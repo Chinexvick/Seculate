@@ -19,7 +19,7 @@ const principles = [
 ];
 
 export default function Careers() {
-  usePageMeta('Careers', 'Help build the trusted way to borrow, lend and get things done. Work with Seculate.');
+  usePageMeta();
   return (
     <>
       <PageHero

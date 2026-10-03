@@ -11,7 +11,7 @@ const shortcuts = [
 ] as const;
 
 export default function Contact() {
-  usePageMeta('Contact us', 'Get in touch with the Seculate team for support, partnerships, press or feedback.');
+  usePageMeta();
   return (
     <>
       <PageHero
