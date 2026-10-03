@@ -24,7 +24,7 @@ const stories = [
 ];
 
 export default function CommunityPage() {
-  usePageMeta('Community', 'The Seculate community: guidelines, member stories and how to get involved.');
+  usePageMeta();
   return (
     <>
       <PageHero

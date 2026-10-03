@@ -6,7 +6,7 @@ import { usePageMeta } from '../lib/usePageMeta';
 
 export default function Legal({ doc }: { doc: 'privacy' | 'terms' }) {
   const d = legal[doc];
-  usePageMeta(d.title);
+  usePageMeta();
   return (
     <>
       <PageHero eyebrow="LEGAL" title={d.title} lead={`Last updated ${d.updated}`} />

@@ -1,5 +1,5 @@
 import { MotionConfig, motion, useScroll, useSpring } from 'framer-motion';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { Nav } from './components/Nav';
 import { Newsletter } from './components/Newsletter';
 import { Footer } from './components/Footer';
@@ -17,12 +17,13 @@ import BlogPost from './pages/BlogPost';
 import Legal from './pages/Legal';
 import NotFound from './pages/NotFound';
 
+/** The whole site. The router is supplied by the caller: BrowserRouter in the browser, StaticRouter at build time. */
 export default function App() {
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, { stiffness: 120, damping: 28, restDelta: 0.001 });
 
   return (
-    <BrowserRouter>
+    <>
       <ScrollManager />
       {/* reducedMotion="user" turns off transform/layout animations for people who ask for less motion. */}
       <MotionConfig reducedMotion="user">
@@ -50,6 +51,6 @@ export default function App() {
           <Footer />
         </div>
       </MotionConfig>
-    </BrowserRouter>
+    </>
   );
 }

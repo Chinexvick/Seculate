@@ -29,18 +29,19 @@ export function Footer() {
         </motion.div>
 
         <motion.div className="footer__badges" variants={fadeUp}>
-          <a href="#" aria-label="Get it on Google Play">
+          {/* TODO: point these at the store listings once the app is published. */}
+          <Link to="/#download">
             <Art name="badge-google.svg" alt="Get it on Google Play" />
-          </a>
-          <a href="#" aria-label="Download on the App Store">
+          </Link>
+          <Link to="/#download">
             <Art name="badge-apple.svg" alt="Download on the App Store" />
-          </a>
+          </Link>
         </motion.div>
 
         <motion.div className="footer__cols" variants={stagger(0.1, 0.1)}>
           {cols.map((c) => (
             <motion.div key={c.title} className="footer__col" variants={fadeUp}>
-              <h3>{c.title}</h3>
+              <h2>{c.title}</h2>
               <ul>
                 {c.links.map(([label, href]) => (
                   <li key={label}>

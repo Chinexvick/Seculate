@@ -54,7 +54,7 @@ const redFlags = [
 ];
 
 export default function Safety() {
-  usePageMeta('Safety', 'How Seculate helps keep borrowing, lending and local services safe, plus practical safety tips.');
+  usePageMeta();
   return (
     <>
       <PageHero

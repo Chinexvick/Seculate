@@ -9,7 +9,7 @@ import { fadeUp, stagger } from '../lib/motion';
 import { usePageMeta } from '../lib/usePageMeta';
 
 export default function Help() {
-  usePageMeta('Help center', 'Answers to common questions about borrowing, lending, plans, safety and your Seculate account.');
+  usePageMeta();
   const [query, setQuery] = useState('');
   const q = query.trim().toLowerCase();
 

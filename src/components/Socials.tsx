@@ -1,4 +1,4 @@
-// Replace '#' with the real profile URL once it is available (X is still pending).
+// Add the X profile URL when it is ready; accounts without a link are not shown.
 const socials = [
   {
     label: 'Instagram',
@@ -27,7 +27,7 @@ const socials = [
   },
   {
     label: 'X',
-    href: '#',
+    href: '',
     icon: (
       <path d="M17.8 3h3l-6.6 7.6L22 21h-6.1l-4.8-6.2L5.6 21H2.6l7.1-8.1L2.2 3h6.2l4.3 5.7L17.8 3Zm-1 16.2h1.7L7.3 4.7H5.5l11.3 14.5Z" />
     ),
@@ -37,13 +37,14 @@ const socials = [
 export function Socials() {
   return (
     <ul className="socials" aria-label="Seculate on social media">
-      {socials.map((s) => (
+      {socials.filter((s) => s.href).map((s) => (
         <li key={s.label}>
           <a
             href={s.href}
             className="socials__link"
             aria-label={s.label}
-            {...(s.href !== '#' && { target: '_blank', rel: 'noopener noreferrer' })}
+            target="_blank"
+            rel="noopener noreferrer"
           >
             <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden>
               {s.icon}
