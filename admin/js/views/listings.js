@@ -9,7 +9,7 @@ export default function listings(el, ctx) {
     title: "Listings & services", sub: "Items and services members post. Anything waiting for review is shown first.", search: "Search title, owner name or owner email", exportName: "listings",
     filters: [
       { key: "kind", label: "Type", options: [["", "Items and services"], ["item", "Items"], ["service", "Services"]] },
-      { key: "status", label: "Status", value: "pending_review", options: [["", "Any status"], ["pending_review", "Waiting for review"], ["approved", "Approved"], ["live", "Live"], ["reserved", "Reserved"], ["unavailable", "Unavailable"], ["changes_requested", "Changes requested"], ["rejected", "Rejected"], ["suspended", "Suspended"], ["archived", "Archived"]] },
+      { key: "status", label: "Status", value: "pending_review", options: [["", "Any status"], ["pending_review", "Waiting for review"], ["live", "Approved (live)"], ["reserved", "Reserved"], ["changes_requested", "Changes requested"], ["rejected", "Rejected"], ["suspended", "Suspended"], ["archived", "Archived"]] },
     ],
     fetch: ({ q, f, offset, limit }) => rpc("admin_list_listings", { p_kind: f.kind, p_status: f.status, p_q: q, p_limit: limit, p_offset: offset }),
     columns: [
@@ -22,7 +22,7 @@ export default function listings(el, ctx) {
     ],
     onRow: (l, reload) => reviewModal({
       title: l.title, bucket: "listing-images", images: l.images, fn: "moderate_listing", id: l.id, ownerId: l.owner_id, ownerName: l.owner_name, ownerEmail: l.owner_email, risk: l.risk_score,
-      canDecide: ctx.can("listings.moderate"), after: reload,
+      canDecide: ctx.can("listings.moderate"), status: l.status, after: reload,
       rows: [["Type", esc(l.kind)], ["Category", esc([l.category_label, l.sub_category].filter(Boolean).join(" › "))], ["Price per day", ngn(l.price_per_day)], ["Deposit", ngn(l.collateral)], ["Stock", num(l.stock)], ["Lending period", esc(l.lending_period)], ["Availability", esc(l.availability)], ["Delivery", esc(label(l.delivery_option))], ["Location", esc(l.location_label)], ["Description", esc(l.description)], ["Features", esc(Array.isArray(l.features) ? l.features.join(", ") : l.features)], ["Status", pill(l.status)], ["Last review note", esc(l.review_note)], ["Rating", l.rating_count ? `${Number(l.rating_avg).toFixed(1)} (${l.rating_count})` : ""], ["Posted", dd(l.created_at)], ["Expires", dd(l.expires_at)]],
     }),
   });
