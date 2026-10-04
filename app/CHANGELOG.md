@@ -15,3 +15,7 @@
 - Report a problem, deal timeline, request editing, pause a listing, attach a listing to a bid, minimum and maximum rental days.
 - Branded emails for payment and verification events; payment result pages on pay.seculate.ng.
 - Backend: wallet, withdrawal, identity and notification edge functions.
+
+## iOS
+- Added the iOS project (bundle id ng.seculate.seculate, iOS 15+) with camera, microphone, photo and location permission texts and the seculate:// link.
+- A GitHub Actions workflow (iOS build) builds the app on a Mac runner. The IPA it produces is unsigned; installing on a device or uploading to TestFlight needs an Apple Developer account and signing.
