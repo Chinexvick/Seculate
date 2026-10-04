@@ -1,0 +1,10 @@
+:root{--g:#00C532;--gd:#008A23;--ink:#121212;--mut:#6B788E;--bg:#F1F4F2;--card:#fff;--bad:#D6392B;--badbg:#FFF3F2;--okbg:#F3FBF5;--okb:#BDEBC8;--badb:#F6C4BF}
+@media (prefers-color-scheme:dark){:root{--ink:#F2F5F3;--mut:#9BA7B8;--bg:#0E1210;--card:#171C19;--okbg:#10231A;--okb:#1E5233;--badbg:#2A1513;--badb:#6B2B25}}
+*{box-sizing:border-box}html,body{margin:0}body{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px 16px;background:var(--bg);color:var(--ink);font-family:Poppins,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+.wrap{width:100%;max-width:460px}.brand{display:flex;align-items:center;justify-content:center;gap:10px;font-weight:700;font-size:24px;letter-spacing:-.3px;margin-bottom:20px}.brand img{width:44px;height:44px}
+.card{background:var(--card);border-radius:28px 8px 28px 8px;box-shadow:0 4px 24px rgba(18,18,18,.08);overflow:hidden}.bar{height:6px;background:linear-gradient(90deg,#2BCF55,var(--gd))}.card.bad .bar{background:var(--bad)}
+.in{padding:34px 28px 30px;text-align:center}.badge{display:inline-flex;align-items:center;justify-content:center;width:72px;height:72px;font-size:34px;background:var(--okbg);border:2px solid var(--okb);border-radius:24px 7px 24px 7px;margin-bottom:16px}.bad .badge{background:var(--badbg);border-color:var(--badb)}
+h1{font-size:23px;margin:0 0 10px;font-weight:600}p{margin:0 0 8px;line-height:1.6;color:var(--mut);font-size:15px}b{color:var(--ink)}
+.chip{display:inline-block;margin:10px 0 4px;padding:10px 18px;background:var(--bg);border-radius:14px 4px 14px 4px;font-weight:700;font-size:20px;color:var(--ink)}.chip small{display:block;font-size:11px;font-weight:500;letter-spacing:.6px;text-transform:uppercase;color:var(--mut)}
+.btn{display:inline-block;margin-top:18px;background:var(--g);color:#fff;text-decoration:none;font-weight:600;font-size:15px;padding:14px 32px;border-radius:16px 5px 16px 5px}.btn:focus-visible{outline:3px solid var(--gd);outline-offset:3px}
+.ref{margin-top:18px;font-size:12px;color:var(--mut);word-break:break-all}.foot{text-align:center;font-size:12px;color:var(--mut);margin-top:18px;line-height:1.6}

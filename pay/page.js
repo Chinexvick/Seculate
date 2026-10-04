@@ -1,0 +1,5 @@
+(function(){var q=new URLSearchParams(location.search),s=(q.get('status')||'').toLowerCase();var bad=s==='cancelled'||s==='canceled'||s==='failed'||s==='error';var c=document.getElementById('card');if(bad)c.classList.add('bad');
+var o=document.getElementById('ok'),f=document.getElementById('fail');if(o)o.hidden=bad;f.hidden=!bad;
+var p=document.body.dataset.param,v=p&&q.get(p);var el=document.getElementById('v');if(el&&v&&!bad){var lab=document.body.dataset.label;if(p==='amount'){var n=Number(v);if(isFinite(n))el.textContent='\u20a6'+n.toLocaleString('en-NG')}else if(p==='credits'){el.textContent=v+' credits'}else el.textContent=v}
+var chip=document.getElementById('chip');if(chip&&v&&!bad&&p!=='plan'){var t=p==='amount'?'\u20a6'+Number(v).toLocaleString('en-NG'):v;chip.innerHTML='<small>'+document.body.dataset.label+'</small>'+t.replace(/[<>&]/g,'');chip.hidden=false}
+var r=q.get('tx_ref');var rf=document.getElementById('ref');if(r&&rf){rf.textContent='Reference: '+r.replace(/[^A-Za-z0-9_\-]/g,'');rf.hidden=false}})();
