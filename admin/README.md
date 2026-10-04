@@ -16,4 +16,4 @@ Staff dashboard for the Seculate marketplace. Static HTML and ES modules, no bui
 - No secrets belong in this repository.
 
 ## Deploy
-Import the repository in Vercel (framework: Other, no build command, output directory `.`), then add the domain under Project → Domains.
+Vercel project `seculate-admin` is linked to this repo with Root Directory `admin` (framework: Other, no build command, output directory `.`). Pushes to the production branch deploy automatically; add the domain under Project → Domains.
