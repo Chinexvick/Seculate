@@ -5,7 +5,6 @@ import '../../app/routes.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_theme.dart';
 import '../../core/widgets/app_image.dart';
-import '../../core/widgets/social_links.dart';
 import '../../core/widgets/tappable.dart';
 import '../../data/user_profile.dart';
 
@@ -87,23 +86,23 @@ class _Drawer extends StatelessWidget {
                               () => onNavigate(Routes.userSettings)),
                           _Item('menu_listings', 'My Listings',
                               () => onNavigate(Routes.myListings)),
-                          _Item('menu_listings', 'Item requests',
+                          _Item(Icons.manage_search_rounded, 'Item requests',
                               () => onNavigate(Routes.requests)),
-                          _Item('menu_pricing', 'Wallet',
+                          _Item(Icons.account_balance_wallet_outlined, 'Wallet',
                               () => onNavigate(Routes.wallet)),
-                          _Item('menu_pricing', 'Credits',
+                          _Item(Icons.toll_outlined, 'Credits',
                               () => onNavigate(Routes.credits)),
-                          _Item('menu_pricing', 'Certificates',
+                          _Item(Icons.verified_outlined, 'Certificates',
                               () => onNavigate(Routes.certificates)),
-                          _Item('menu_pricing', 'pricing Plans',
+                          _Item(
+                              Icons.workspace_premium_outlined,
+                              'Pricing plans',
                               () => onNavigate(Routes.pricing)),
-                          _Item('menu_care', 'customer care',
+                          _Item('menu_care', 'Customer care',
                               () => onNavigate(Routes.support)),
                         ]),
                   ),
                 ),
-                const SizedBox(height: 10),
-                const SocialLinks(),
                 const SizedBox(height: 14),
                 Align(
                   alignment: Alignment.centerRight,
@@ -139,7 +138,7 @@ class _Drawer extends StatelessWidget {
 
 class _Item extends StatelessWidget {
   const _Item(this.icon, this.label, this.onTap);
-  final String icon;
+  final Object icon;
   final String label;
   final VoidCallback onTap;
 
@@ -151,7 +150,13 @@ class _Item extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 0),
         child: Row(children: [
-          SvgPicture.asset('assets/icons/$icon.svg', width: 24, height: 24),
+          if (icon is IconData)
+            SizedBox(
+                width: 24,
+                height: 24,
+                child: Icon(icon as IconData, size: 24, color: AppColors.black))
+          else
+            SvgPicture.asset('assets/icons/$icon.svg', width: 24, height: 24),
           const SizedBox(width: 14),
           Text(label,
               style: const TextStyle(

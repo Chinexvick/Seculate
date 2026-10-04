@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../core/widgets/app_button.dart';
 import '../../data/backend_wallet.dart';
 import '../../core/widgets/trust_badge.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -219,16 +220,173 @@ class _ProfileScreenState extends State<ProfileScreen> {
         _Link('Log out', _logout),
       ]);
 
-  Widget _businessFields() => Column(
+  Widget _businessFields() => _BusinessForm(onSaved: () => setState(() {}));
+}
+
+/// Business details: editable and saved straight to the account.
+class _BusinessForm extends StatefulWidget {
+  const _BusinessForm({required this.onSaved});
+  final VoidCallback onSaved;
+  @override
+  State<_BusinessForm> createState() => _BusinessFormState();
+}
+
+class _BusinessFormState extends State<_BusinessForm> {
+  final _p = currentProfile;
+  late final _name = TextEditingController(text: _p.businessName);
+  late final _about = TextEditingController(text: _p.about);
+  late final _link = TextEditingController(text: _p.link);
+  bool _saving = false;
+  String? _nameErr;
+  String? _linkErr;
+
+  @override
+  void dispose() {
+    _name.dispose();
+    _about.dispose();
+    _link.dispose();
+    super.dispose();
+  }
+
+  bool get _changed =>
+      _name.text.trim() != _p.businessName ||
+      _about.text.trim() != _p.about ||
+      _link.text.trim() != _p.link;
+
+  Future<void> _save() async {
+    FocusScope.of(context).unfocus();
+    final name = _name.text.trim();
+    var link = _link.text.trim();
+    final about = _about.text.trim();
+    setState(() {
+      _nameErr = name.isEmpty && (about.isNotEmpty || link.isNotEmpty)
+          ? 'Business name is required'
+          : null;
+      _linkErr = null;
+    });
+    if (link.isNotEmpty) {
+      if (!RegExp(r'^[a-z][a-z0-9+.-]*://').hasMatch(link)) {
+        link = 'https://$link';
+      }
+      final u = Uri.tryParse(link);
+      if (u == null ||
+          !(u.scheme == 'http' || u.scheme == 'https') ||
+          !u.host.contains('.')) {
+        setState(() => _linkErr = 'Enter a valid link, like www.mybrand.com');
+        return;
+      }
+    }
+    if (_nameErr != null) return;
+    setState(() => _saving = true);
+    try {
+      await ProfileService.instance.update({
+        'business_name': name,
+        'business_about': about,
+        'business_link': link,
+      });
+      if (!mounted) return;
+      _link.text = link;
+      setState(() => _saving = false);
+      widget.onSaved();
+      AppToast.show(context, 'Business details saved');
+    } catch (_) {
+      if (!mounted) return;
+      setState(() => _saving = false);
+      AppToast.show(
+          context, 'Could not save. Check your connection and retry.');
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SizedBox(height: 26),
+        const _Section('Business'),
+        _EditField('Business Name*', _name,
+            error: _nameErr, max: 60, onChanged: (_) => setState(() {})),
+        _EditField('About company', _about,
+            lines: 3, max: 400, onChanged: (_) => setState(() {})),
+        _EditField('Business link', _link,
+            error: _linkErr,
+            keyboard: TextInputType.url,
+            max: 200,
+            onChanged: (_) => setState(() {})),
+        const SizedBox(height: 22),
+        AppButton(
+          label: 'Save',
+          loading: _saving,
+          onPressed: _changed && !_saving ? _save : null,
+        ),
+      ],
+    );
+  }
+}
+
+class _EditField extends StatelessWidget {
+  const _EditField(this.label, this.controller,
+      {this.error,
+      this.lines = 1,
+      this.max,
+      this.keyboard,
+      required this.onChanged});
+  final String label;
+  final TextEditingController controller;
+  final String? error;
+  final int lines;
+  final int? max;
+  final TextInputType? keyboard;
+  final ValueChanged<String> onChanged;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.fromLTRB(8, 10, 8, 6),
+      decoration: BoxDecoration(
+          border: Border(
+              bottom: BorderSide(
+                  color:
+                      error != null ? AppColors.alert : AppColors.neutral40))),
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(height: 26),
-          const _Section('Business'),
-          _Field('Business Name*', _p.businessName),
-          _Field('About company', _p.about),
-          _Field('Business link', _p.link),
+          Text(label,
+              style: const TextStyle(
+                  fontFamily: AppTheme.fontFamily,
+                  fontSize: 10,
+                  color: AppColors.primaryDark)),
+          TextField(
+            controller: controller,
+            onChanged: onChanged,
+            minLines: lines,
+            maxLines: lines,
+            maxLength: max,
+            keyboardType: lines > 1 ? TextInputType.multiline : keyboard,
+            cursorColor: AppColors.primary,
+            style: const TextStyle(
+                fontFamily: AppTheme.fontFamily,
+                fontSize: 15,
+                color: Color(0xFF333333)),
+            decoration: const InputDecoration(
+                border: InputBorder.none,
+                isDense: true,
+                counterText: '',
+                contentPadding: EdgeInsets.symmetric(vertical: 8)),
+          ),
+          if (error != null)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 4),
+              child: Text(error!,
+                  style: const TextStyle(
+                      fontFamily: AppTheme.fontFamily,
+                      fontSize: 11,
+                      color: AppColors.alert)),
+            ),
         ],
-      );
+      ),
+    );
+  }
 }
 
 class _Header extends StatelessWidget {

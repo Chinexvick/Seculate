@@ -31,7 +31,8 @@ class _CategoryPickerScreenState extends State<CategoryPickerScreen> {
     final all = widget.tasks
         ? [
             for (final t in adTaskCategories)
-              _Row(t, 'assets/images/services/svc_errand.png', null)
+              _Row(t, 'assets/images/services/svc_errand.png', null,
+                  icon: _errandIcons[t])
           ]
         : p == null
             ? [for (final c in adCategories) _Row(c.label, c.image, c)]
@@ -141,8 +142,20 @@ class _CategoryPickerScreenState extends State<CategoryPickerScreen> {
   }
 }
 
+const _errandIcons = <String, IconData>{
+  'Errand Running': Icons.directions_run_rounded,
+  'Delivery': Icons.local_shipping_outlined,
+  'Cleaning': Icons.cleaning_services_outlined,
+  'Repairs': Icons.build_outlined,
+  'Moving': Icons.inventory_2_outlined,
+  'Shopping': Icons.shopping_bag_outlined,
+  'Pickup & Drop-off': Icons.swap_vert_rounded,
+  'Other': Icons.more_horiz_rounded,
+};
+
 class _Row {
-  const _Row(this.label, this.image, this.category);
+  const _Row(this.label, this.image, this.category, {this.icon});
+  final IconData? icon;
   final String label;
   final String image;
   final AdCategory? category;
@@ -169,7 +182,9 @@ class _RowTile extends StatelessWidget {
                 color: const Color(0xFFEDEEF1),
                 borderRadius: BorderRadius.circular(2),
               ),
-              child: Image.asset(row.image, fit: BoxFit.contain),
+              child: row.icon != null
+                  ? Icon(row.icon, size: 26, color: AppColors.primaryDark)
+                  : Image.asset(row.image, fit: BoxFit.contain),
             ),
             const SizedBox(width: 12),
             Expanded(

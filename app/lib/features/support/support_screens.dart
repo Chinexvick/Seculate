@@ -1,5 +1,8 @@
 import 'dart:async';
 
+import 'package:flutter/services.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 import 'package:flutter/material.dart';
 import '../../core/widgets/social_links.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -55,8 +58,6 @@ class _SupportScreenState extends State<SupportScreen> {
 
   @override
   Widget build(BuildContext context) {
-    void soon(String what) =>
-        AppToast.show(context, '$what will open once connected');
     final first = currentProfile.firstName;
     final tickets = _tickets;
     return SettingsScaffold(
@@ -122,12 +123,7 @@ class _SupportScreenState extends State<SupportScreen> {
                   () => _openChat(t.id)),
             const SizedBox(height: 12),
           ],
-          _Channel('support_whatsapp', 'Whatsapp', 'Lets talk on whatsapp',
-              () => soon('WhatsApp')),
-          _Channel('support_mail', 'Email', 'saculate.ng@gmail.com',
-              () => soon('Your email app')),
-          _Channel('support_call', 'Call', '+234 908-342-5649',
-              () => soon('The dialer')),
+          _Channel('support_mail', 'Email', 'info@seculate.ng', _email),
           const SizedBox(height: 22),
           const Text('Stay Connected',
               style: TextStyle(
@@ -137,12 +133,12 @@ class _SupportScreenState extends State<SupportScreen> {
           const SizedBox(height: 10),
           Container(
             width: double.infinity,
-            padding: const EdgeInsets.fromLTRB(2, 6, 2, 12),
+            padding: const EdgeInsets.fromLTRB(12, 12, 12, 14),
             decoration: BoxDecoration(
                 color: _cardBg, borderRadius: BorderRadius.circular(4)),
             child: Column(children: [
               const Padding(
-                padding: EdgeInsets.fromLTRB(0, 0, 0, 12),
+                padding: EdgeInsets.fromLTRB(0, 0, 0, 14),
                 child: Text(
                     'Reach out to Seculate Support on any of our social media channels',
                     style: TextStyle(
@@ -154,24 +150,57 @@ class _SupportScreenState extends State<SupportScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  for (final i in ['instagram', 'x', 'facebook'])
-                    GestureDetector(
-                      onTap: () => openSocial(
-                          context,
-                          socialLinks
-                              .firstWhere((l) => l.$1.toLowerCase() == i,
-                                  orElse: () => socialLinks.first)
-                              .$2),
-                      child: SvgPicture.asset('assets/icons/support_$i.svg',
-                          width: 24, height: 24),
-                    ),
+                  for (final (label, url) in socialLinks)
+                    _SocialIcon(label, url),
                 ],
               ),
-              const SizedBox(height: 12),
-              const SocialLinks(title: null),
             ]),
           ),
         ],
+      ),
+    );
+  }
+
+  Future<void> _email() async {
+    final ok = await launchUrl(
+        Uri(scheme: 'mailto', path: 'info@seculate.ng', queryParameters: {
+      'subject': 'Seculate support',
+    })).catchError((_) => false);
+    if (!ok && mounted) {
+      await Clipboard.setData(const ClipboardData(text: 'info@seculate.ng'));
+      if (mounted) {
+        AppToast.show(context, 'No email app found. Address copied.');
+      }
+    }
+  }
+}
+
+class _SocialIcon extends StatelessWidget {
+  const _SocialIcon(this.label, this.url);
+  final String label;
+  final String url;
+
+  @override
+  Widget build(BuildContext context) {
+    final key = label.toLowerCase();
+    return InkWell(
+      onTap: () => openSocial(context, url),
+      borderRadius: BorderRadius.circular(8),
+      child: Padding(
+        padding: const EdgeInsets.all(6),
+        child: Column(mainAxisSize: MainAxisSize.min, children: [
+          key == 'tiktok'
+              ? const Icon(Icons.music_note_rounded,
+                  size: 26, color: AppColors.primary)
+              : SvgPicture.asset('assets/icons/support_$key.svg',
+                  width: 26, height: 26),
+          const SizedBox(height: 4),
+          Text(label,
+              style: const TextStyle(
+                  fontFamily: AppTheme.fontFamily,
+                  fontSize: 11,
+                  color: AppColors.neutral200)),
+        ]),
       ),
     );
   }
